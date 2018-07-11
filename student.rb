@@ -28,7 +28,7 @@ def decision_main_menu
     puts "*** WELCOME TO THE MOST AWESOME ENROLLMENT SYSTEM IN THE WORLD!! ***"
     puts
     puts
-    print "Now what do you want to do? Enroll[1] or View Student Info[2]? "
+    print "Now what do you want to do? Enroll[1] or View Student Info[2] or View all students[3]? "
     choice = gets.chomp
 
     decision_enroll_view(choice)
@@ -40,6 +40,8 @@ def decision_enroll_view(choice)
         decision_enroll
     elsif choice == "2"
         decision_view
+    elsif choice == "3"
+        decision_view_all
     end
 end
 
@@ -65,11 +67,11 @@ def decision_enroll
     puts
 
     print "Enroll another student? [Y/N]"
-    choice = gets.chomp
+    choice = gets.chomp.downcase
 
-    if choice == "Y" or choice == "y"
+    if choice == "y"
         decision_enroll
-    elsif choice == "N" or choice == "n"
+    elsif choice == "n"
         decision_main_menu
     end
 end
@@ -102,13 +104,46 @@ def decision_view
     end
 end
 
+def decision_view_all
+
+    puts
+    puts
+
+    unless @array_of_students == {}
+        puts "*** THESE ARE THE AWESOME STUDENTS THAT YOU ENROLLED! ***"
+
+        puts
+    
+        @array_of_students.each do |key, value|
+            
+            puts "Student ID: " + value[0].to_s
+            puts "First Name: " + value[1]
+            puts "Last Name: " + value[2]
+            puts "Age: " + value[3]
+    
+            puts
+        end
+    else
+        puts "*** YOU HAVEN'T ENROLLED AN AWESOME STUDENT YET!!! ***"
+
+        puts "///////   ////    //"
+        puts "//        // //   //"
+        puts "/////     //  //  //"
+        puts "//        //   // //"
+        puts "//////    //    ////"
+        puts puts puts puts puts
+    end
+
+    decision_main_menu
+end
+
 def decision_view_try_again(message)
     print message
-    choice = gets.chomp
+    choice = gets.chomp.downcase
 
-        if choice == "Y" or choice == "y"
+        if choice == "y"
             decision_view
-        elsif choice == "N" or choice == "n"
+        elsif choice == "n"
             decision_main_menu
         end
 end
